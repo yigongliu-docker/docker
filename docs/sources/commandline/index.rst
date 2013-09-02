@@ -26,6 +26,7 @@ Contents:
   insert  <command/insert>
   inspect <command/inspect>
   kill    <command/kill>
+  load    <command/load>
   login   <command/login>
   logs    <command/logs>
   port    <command/port>
@@ -36,6 +37,7 @@ Contents:
   rm      <command/rm>
   rmi     <command/rmi>
   run     <command/run>
+  save    <command/save>
   search  <command/search>
   start   <command/start>
   stop    <command/stop>
