@@ -31,7 +31,7 @@ run ln -s /usr/local/go/bin/go /usr/bin
 run curl http://get.docker.io/builds/Linux/x86_64/docker-latest >/usr/bin/docker; chmod +x /usr/bin/docker
 
 # Add test_docker.sh
-run /bin/echo -e '#!/bin/bash\nset -x;COMMIT=${1-HEAD}\nREPO=${2-http://github.com/dotcloud/docker}\nBRANCH=${3-master}\nmount -t tmpfs none /tmp; mount -t tmpfs none /sys/fs/cgroup; cd /sys/fs/cgroup\nfor C in $(awk "{print \$1}" < /proc/cgroups | grep -v subsys | grep -v memory) ; do mkdir $C ; mount -t cgroup none -o $C $C ; done\npushd /proc/self/fd; for FD in *; do case "$FD" in [012]) ;; *) eval exec "$FD>&-" ;; esac done; popd\n/bin/sh -c "docker -d" &\nexport GOPATH=/go; rm -rf $GOPATH; mkdir -p $GOPATH\ngo get -d github.com/dotcloud/docker; cd /go/src/github.com/dotcloud/docker\ngit fetch "$REPO" "$BRANCH:CKT-$BRANCH"; git reset --hard "$COMMIT"; git rebase master\ngo test -v\n' >/usr/bin/test_docker.sh
+add test_docker.sh /usr/bin/test_docker.sh
 run chmod +x /usr/bin/test_docker.sh
 
 # Make /var/lib/docker inside the container addressable by other containers.
