@@ -13,17 +13,11 @@ git fetch -q http://github.com/dotcloud/docker master
 git reset --hard FETCH_HEAD
 
 echo FIXME. Temporarily add Jerome changeset with proper apparmor handling
-
-git fetch -q http://github.com/jpetazzo/docker escape-apparmor-confinement:escape-apparmor-confinement
-git rebase --onto master master escape-apparmor-confinement
+git pull -q https://github.com/jpetazzo/docker.git escape-apparmor-confinement || exit 1
 
 # Rebase commit in top of master
-git fetch -q "$REPO" "$BRANCH:CKT-$BRANCH"
-git reset --hard "$COMMIT"
-#git rebase master
-
-#### FIXME. Temporarily rebase on top of Jerome changeset
-git rebase escape-apparmor-confinement
+git fetch -q "$REPO" "$BRANCH"
+git merge --no-edit $COMMIT || exit 1
 
 # Test commit
 go test -v
