@@ -8,6 +8,6 @@
 
 ::
 
-    Usage: docker kill [OPTIONS] CONTAINER [CONTAINER...]
+    Usage: docker kill CONTAINER [CONTAINER...]
 
     Kill a running container

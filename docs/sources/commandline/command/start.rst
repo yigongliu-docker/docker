@@ -11,3 +11,6 @@
     Usage: docker start [OPTIONS] NAME
 
     Start a stopped container
+
+      -a=false: Attach container's stdout/stderr and forward all signals to the process
+      -i=false: Attach container's stdin

@@ -32,6 +32,7 @@
       -entrypoint="": Overwrite the default entrypoint set by the image.
       -w="": Working directory inside the container
       -lxc-conf=[]: Add custom lxc options -lxc-conf="lxc.cgroup.cpuset.cpus = 0,1"
+      -sig-proxy=false: Proxify all received signal to the process (even in non-tty mode)
 
 Examples
 --------
