@@ -59,7 +59,7 @@ func Debugf(format string, a ...interface{}) {
 			file = file[strings.LastIndex(file, "/")+1:]
 		}
 
-		fmt.Fprintf(os.Stderr, fmt.Sprintf("[debug] %s:%d %s\n", file, line, format), a...)
+		fmt.Fprintf(os.Stderr, fmt.Sprintf("[debug][%s] %s:%d %s\n", time.Now(), file, line, format), a...)
 	}
 }
 
