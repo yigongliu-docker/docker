@@ -3,6 +3,9 @@ package docker
 import (
 	"fmt"
 	"strings"
+	"os"
+	"path/filepath"
+	"syscall"
 )
 
 // Compare two Config struct. Do not compare the "Image" nor "Hostname" fields
@@ -173,4 +176,22 @@ func parseLxcOpt(opt string) (string, string, error) {
 		return "", "", fmt.Errorf("Unable to parse lxc conf option: %s", opt)
 	}
 	return strings.TrimSpace(parts[0]), strings.TrimSpace(parts[1]), nil
+}
+
+func FileTreeSize(root string) uint64 {
+	var totalSize int64 = 0
+	filepath.Walk(root, func(path string, fileInfo os.FileInfo, err error) error {
+		totalSize += fileInfo.Size()
+		return nil
+	})
+	return uint64(totalSize)
+}
+
+func FileSystemAvailSize(path string) (uint64, error) {
+	var st syscall.Statfs_t
+	err := syscall.Statfs(path, &st)
+	if err != nil {
+		return 0, err
+	}
+	return uint64(st.Bsize) * st.Bavail, nil
 }

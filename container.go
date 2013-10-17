@@ -1132,6 +1132,11 @@ func (container *Container) Resize(h, w int) error {
 }
 
 func (container *Container) ExportRw() (Archive, error) {
+	fTreeSize := FileTreeSize(container.rwPath())
+	availSpace, err := FileSystemAvailSize(container.rwPath())
+	if err == nil && availSpace < fTreeSize {
+		return nil, fmt.Errorf("Run out of disk space")
+	}
 	return Tar(container.rwPath(), Uncompressed)
 }
 
